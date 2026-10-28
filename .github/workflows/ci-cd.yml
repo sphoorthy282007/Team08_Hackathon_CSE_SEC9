@@ -1,0 +1,77 @@
+name: TeamFair Production Microservices CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master, dev ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    name: Build & Test All Services
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_DB: teamfair_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgrespassword
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d teamfair_db"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - name: Checkout Code Repository
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Build Eureka Discovery Server
+      run: |
+        cd discovery-server
+        mvn clean test-compile
+
+    - name: Build API Gateway
+      run: |
+        cd gateway
+        mvn clean test-compile
+
+    - name: Test User Service
+      run: |
+        cd services/user-service
+        mvn clean test
+
+    - name: Test Task Service
+      run: |
+        cd services/task-service
+        mvn clean test
+
+    - name: Test Review Service
+      run: |
+        cd services/review-service
+        mvn clean test
+
+    - name: Test Dispute Service
+      run: |
+        cd services/dispute-service
+        mvn clean test
+
+    - name: Build React Frontend UI
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - run: |
+        cd frontend
+        npm install
+        npm run build
