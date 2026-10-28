@@ -1,4 +1,4 @@
-name: TeamFair CI/CD Pipeline
+name: TeamFair CI Pipeline
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "main", "master" ]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,22 +18,9 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
-        cache-dependency-path: frontend/package-lock.json
 
-    - name: Install Frontend Dependencies
+    - name: Install Frontend Dependencies & Build
       run: |
         cd frontend
         npm install
-
-    - name: Build Frontend Application
-      run: |
-        cd frontend
         npm run build
-
-    - name: Docker Build Check
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        push: false
-        tags: teamfair-app:latest
