@@ -19,6 +19,15 @@ TeamFair is an enterprise-grade microservices web application built to solve stu
 
 ## 🚀 Step-by-Step Instructions to Run the Project
 
+### ⚡ 1-Click Launchers (Windows .BAT Files)
+
+- **Start Application**: Double-click `START_TEAMFAIR.bat`
+  - Verifies dependencies, boots the TeamFair server on `http://localhost:5173`, and automatically opens your browser.
+- **Stop Application**: Double-click `STOP_TEAMFAIR.bat`
+  - Shuts down the servers and frees ports `5173` and `3000`.
+
+---
+
 ### Method 1: Run Entire System with Docker Compose (Single Command)
 
 1. Ensure **Docker Desktop** is open and running on your system.

@@ -69,17 +69,19 @@ CREATE TABLE IF NOT EXISTS dispute_actions (
 
 -- Seed Clean Real Data
 INSERT INTO users (name, email, password_hash, role) VALUES
+('Sphoorthy', 'sphoorthy@teamfair.edu', '$2a$10$e8.Z/yA.k9/x.g98y', 'STUDENT'),
+('Kavya', 'kavya@teamfair.edu', '$2a$10$e8.Z/yA.k9/x.g98y', 'STUDENT'),
+('Poojitha', 'poojitha@teamfair.edu', '$2a$10$e8.Z/yA.k9/x.g98y', 'STUDENT'),
+('Dr. Robert Vance', 'faculty@teamfair.edu', '$2a$10$e8.Z/yA.k9/x.g98y', 'FACULTY'),
 ('Alice Miller', 'alice@teamfair.edu', '$2a$10$e8.Z/yA.k9/x.g98y', 'STUDENT'),
-('Bob Smith', 'bob@teamfair.edu', '$2a$10$e8.Z/yA.k9/x.g98y', 'STUDENT'),
-('Carol Davis', 'carol@teamfair.edu', '$2a$10$e8.Z/yA.k9/x.g98y', 'STUDENT'),
-('Dr. Robert Vance', 'faculty@teamfair.edu', '$2a$10$e8.Z/yA.k9/x.g98y', 'FACULTY');
+('Bob Smith', 'bob@teamfair.edu', '$2a$10$e8.Z/yA.k9/x.g98y', 'STUDENT');
 
 INSERT INTO teams (team_name, project_title) VALUES
-('Team Alpha', 'Microservices Dispute Tracking Platform'),
-('Team Beta', 'AI Automated Peer Feedback System');
+('Team trio', 'KLH CSE SEC-9 Group Contribution & Dispute System'),
+('Team Alpha', 'Microservices Dispute Tracking Platform');
 
 INSERT INTO team_members (team_id, user_id) VALUES 
-(1, 1), (1, 2), (2, 3);
+(1, 1), (1, 2), (1, 3);
 
 INSERT INTO tasks (team_id, assigned_to, title, description, status, evidence_url) VALUES
 (1, 1, 'Architecture & API Gateway Design', 'Set up Spring Cloud Gateway and Eureka Discovery Server', 'COMPLETED', 'https://github.com/teamfair/repo/pull/14'),
